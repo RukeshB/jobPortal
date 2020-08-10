@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\JobPost;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $post = JobPost::all();
+        return view('home',compact("post"));
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home/post','PostController@index')->name('post');
+Route::post('/home/post','PostController@store')->name('post');
