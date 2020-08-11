@@ -32,6 +32,22 @@ class HomeController extends Controller
         return view('home',compact("post"));
     }
 
+    public function viewpost()
+    {
+        $post = JobPost::all();
+        return view('approvepost',compact("post"));
+    }
+
+    public function approvepost(Request $request, $id)
+    {
+        
+        $apost = JobPost::findOrFail($id);
+        $apost->approve = "true";
+        $apost->save();
+        $post = JobPost::all();
+        return view('approvepost',compact("post"));
+    }
+
     public function setting()
     {
         return view('setting');

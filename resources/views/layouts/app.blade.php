@@ -50,6 +50,12 @@
                                 </li>
                             @endif
                         @else
+                            
+                            @if(Auth::User()->role->name == "admin")
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('approve') }}">{{ __('Approve post') }}</a>
+                            </li>
+                            @endif
 
                             @if(Auth::User()->role->name == "jobprovider")
                             <li class="nav-item">

@@ -27,6 +27,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/setting', 'HomeController@setting')->name('setting');
 Route::post('/home/change', 'HomeController@change')->name('change');
+Route::get('/home/approve', 'HomeController@viewpost')->name('approve');
+Route::get('/home/{id}', 'HomeController@approvepost')->name('approvepost');
 
 Route::get('/home/post','PostController@create')->name('post');
 Route::post('/home/post','PostController@store')->name('post');

@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         @foreach ($post as $p)
-                        
+                        @if($p->approve == "true")
                         <div class="col-md-4 mb-4">
                             <div class="card bg-light text-dark"> 
                                 <img class="card-img-top" src="{{asset('Image/3439.png')}}" alt="">
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        @endif
                         @endforeach
                     </div>
                 </div>

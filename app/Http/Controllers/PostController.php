@@ -43,7 +43,7 @@ class PostController extends Controller
         $post = JobPost::all();
         $authUser = Auth::user();
 
-        if($authUser->can('edit post',$authUser) || $authUser->can('delete post',$authUser)){
+        if($authUser->can('edit post',$authUser) && $authUser->can('delete post',$authUser)){
             return view('mypost',compact("post"));
         }
         else{
