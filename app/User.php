@@ -46,4 +46,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(JobPost::class);
     }
+
+    public function hasAccess($permissions)
+    {
+
+        if($this->role->permission->contains('name',$permissions)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

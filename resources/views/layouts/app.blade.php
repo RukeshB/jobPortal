@@ -50,7 +50,8 @@
                                 </li>
                             @endif
                         @else
-                                
+
+                            @if(Auth::User()->role->name == "jobprovider")
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('post') }}">{{ __('Post') }}</a>
                             </li>
@@ -58,6 +59,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('mypost') }}">{{ __('My Post') }}</a>
                             </li>
+                            @endif
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

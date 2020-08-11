@@ -41,7 +41,15 @@ class PostController extends Controller
     public function index()
     {
         $post = JobPost::all();
-        return view('mypost',compact("post"));
+        $authUser = Auth::user();
+
+        if($authUser->can('edit post',$authUser) || $authUser->can('delete post',$authUser)){
+            return view('mypost',compact("post"));
+        }
+        else{
+            return 'restricted';
+        }
+        
     }
 
     /**
@@ -51,7 +59,14 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('jobpost');
+        $authUser = Auth::user();
+
+        if($authUser->can('create post',$authUser)){
+            return view('jobpost');
+        }
+        else{
+            return 'restricted';
+        }
     }
 
     /**
@@ -88,7 +103,15 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = JobPost::find($id);
-        return view("editpost",compact("post"));
+        $authUser = Auth::user();
+
+        if($authUser->can('edit post',$authUser)){
+            return view("editpost",compact("post"));
+        }
+        else{
+            return 'restricted';
+        }
+        
     }
 
     /**
@@ -116,8 +139,16 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = JobPost::find($id);
-        $post->delete();
-        $post;
-        return \redirect("/home/mypost");
+        $authUser = Auth::user();
+
+        if($authUser->can('delete post',$authUser)){
+            $post->delete();
+            $post;
+            return \redirect("/home/mypost");
+        }
+        else{
+            return 'restricted';
+        }
+        
     }
 }
