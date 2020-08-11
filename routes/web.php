@@ -21,6 +21,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/setting', 'HomeController@setting')->name('setting');
+Route::post('/home/change', 'HomeController@change')->name('change');
 
-Route::get('/home/post','PostController@index')->name('post');
+Route::get('/home/post','PostController@create')->name('post');
 Route::post('/home/post','PostController@store')->name('post');
+Route::get('/home/mypost', 'PostController@index')->name('mypost');
+Route::get('/home/{id}/edit','PostController@edit')->name('editpost');
+Route::put('/home/{id}','PostController@update')->name('updatepost');
+Route::delete('/home/{id}/delete','PostController@destroy')->name('deletepost');
+

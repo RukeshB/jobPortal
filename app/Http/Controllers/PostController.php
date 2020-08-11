@@ -40,8 +40,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        
-        return view('jobpost');
+        $post = JobPost::all();
+        return view('mypost',compact("post"));
     }
 
     /**
@@ -51,7 +51,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('jobpost');
     }
 
     /**
@@ -65,7 +65,7 @@ class PostController extends Controller
         $this->validator($request->all())->validate();
 
         JobPost::create($request->all());
-        return view("home");
+        return redirect("/home");
     }
 
     /**
@@ -87,7 +87,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = JobPost::find($id);
+        return view("editpost",compact("post"));
     }
 
     /**
@@ -99,7 +100,11 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = JobPost::find($id);
+        $this->validator($request->all())->validate();
+        $post->update($request->all());
+        $post;
+        return \redirect("/home/mypost");
     }
 
     /**
@@ -110,6 +115,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = JobPost::find($id);
+        $post->delete();
+        $post;
+        return \redirect("/home/mypost");
     }
 }
