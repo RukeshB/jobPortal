@@ -35,17 +35,31 @@ class HomeController extends Controller
     public function viewpost()
     {
         $post = JobPost::all();
-        return view('approvepost',compact("post"));
+        $authUser = Auth::user();
+
+        if($authUser->can('Approve post',$authUser)){
+            return view('approvepost',compact("post"));
+        }
+        else{
+            return 'restricted';
+        }
     }
 
     public function approvepost(Request $request, $id)
     {
+        $authUser = Auth::user();
+
+        if($authUser->can('Approve post',$authUser)){
+            $apost = JobPost::findOrFail($id);
+            $apost->approve = "true";
+            $apost->save();
+            $post = JobPost::all();
+            return view('approvepost',compact("post"));
+        }
+        else{
+            return 'restricted';
+        }
         
-        $apost = JobPost::findOrFail($id);
-        $apost->approve = "true";
-        $apost->save();
-        $post = JobPost::all();
-        return view('approvepost',compact("post"));
     }
 
     public function setting()
